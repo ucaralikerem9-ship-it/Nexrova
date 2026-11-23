@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050d1c">
+<title>NEXORA | Hayal Et. Üret. Keşfet.</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ color:#f4f8ff;font-family:Segoe UI,Arial,sans-serif;min-height:100vh;
+ background:radial-gradient(ellipse at 80% 65%,#123d66,transparent 43%),
+ radial-gradient(ellipse at 10% 5%,#142d50,transparent 40%),
+ linear-gradient(135deg,#030916,#07182d 60%,#020713);
+ overflow-x:hidden
+}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:-1;
+ background-image:radial-gradient(2px 2px at 15% 25%,#fff,transparent),
+ radial-gradient(1px 1px at 70% 15%,#fff,transparent),
+ radial-gradient(2px 2px at 85% 65%,#b9eaff,transparent),
+ radial-gradient(1px 1px at 40% 80%,#fff,transparent);
+ background-size:300px 300px;opacity:.6}
+.earth{position:fixed;width:420px;height:420px;border-radius:50%;
+ right:-160px;top:100px;z-index:-1;opacity:.35;
+ background:radial-gradient(circle at 35% 30%,#69cfff,#2475a9 25%,#09264b 70%);
+ box-shadow:inset -40px -30px 65px #010817,0 0 90px #1688c9}
+.container{width:min(1100px,92%);margin:auto;padding:30px 0 55px}
+header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:60px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-icon{width:48px;height:48px;display:grid;place-items:center;
+ border-radius:15px;background:#153957;border:1px solid #5bcaff66;font-size:24px}
+.brand-name{font-size:23px;font-weight:850;letter-spacing:5px;
+ background:linear-gradient(90deg,#fff,#85d9ff,#91a8c8);
+ -webkit-background-clip:text;background-clip:text;color:transparent}
+.brand-sub{font-size:9px;letter-spacing:3px;color:#8ba9c6;margin-top:4px}
+.clock{text-align:right;padding:10px 15px;border-radius:14px;
+ background:#ffffff09;border:1px solid #ffffff20}
+.clock strong{font-size:21px;letter-spacing:2px}
+.clock small{display:block;color:#9bb2ca;margin-top:4px}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:15px 0 50px}
+.eyebrow{color:#55caff;font-size:11px;letter-spacing:4px;font-weight:bold;margin-bottom:15px}
+h1{font-size:clamp(45px,9vw,82px);letter-spacing:5px;line-height:1;
+ background:linear-gradient(110deg,#fff,#9ce4ff,#8298b9);
+ -webkit-background-clip:text;background-clip:text;color:transparent}
+.slogan{margin-top:18px;letter-spacing:2px;color:#c4d9ed}
+.description{color:#91abc6;line-height:1.8;font-size:14px;max-width:480px;margin-top:13px}
+.owl{width:130px;height:130px;flex-shrink:0;border-radius:38px;display:grid;place-items:center;
+ font-size:70px;background:linear-gradient(145deg,#173e61,#09182e);
+ border:1px solid #65caff66;box-shadow:0 0 45px #229bd833}
+.heading{display:flex;justify-content:space-between;align-items:center;margin:12px 0 18px}
+.heading h2{font-size:19px}
+.heading span{font-size:10px;color:#8ca9c7;letter-spacing:2px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.card{padding:22px;border-radius:20px;background:linear-gradient(145deg,#183653bb,#071326dd);
+ border:1px solid #a3d9ff22;backdrop-filter:blur(12px);
+ cursor:pointer;transition:.25s;position:relative}
+.card:hover{transform:translateY(-4px);border-color:#54c6ff99;box-shadow:0 12px 35px #168bd52b}
+.card-top{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.card-icon{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;
+ font-size:22px;background:#42baff18;border:1px solid #55c6ff35}
+.card h3{font-size:16px}
+.card p{font-size:12px;line-height:1.7;color:#9bb2ca}
+.tag{display:inline-block;margin-top:13px;padding:6px 10px;border-radius:20px;
+ font-size:10px;color:#9bdeff;background:#3bbaff13;border:1px solid #50baff30}
+.tag.green{color:#a8f0c2;background:#39d58b12;border-color:#39d58b55}
+.tag.gold{color:#ffe0a1;background:#ffbd4a12;border-color:#ffbd4a35}
+.section{margin-top:42px}
+.robot-card{cursor:default}
+.robot-card:hover{transform:none}
+.footer{text-align:center;margin-top:60px;padding-top:23px;
+ border-top:1px solid #ffffff15;color:#718ba7;font-size:11px;letter-spacing:2px}
+
+/* Bilgi penceresi */
+.modal{display:none;position:fixed;inset:0;z-index:10;background:#020713d9;
+ align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(8px)}
+.modal.show{display:flex}
+.modal-box{width:min(470px,100%);max-height:85vh;overflow:auto;
+ padding:25px;border-radius:23px;background:linear-gradient(145deg,#163858,#071426);
+ border:1px solid #61caff66;box-shadow:0 0 55px #168bd544}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.modal-head h2{font-size:20px}
+.close{width:36px;height:36px;border-radius:10px;border:1px solid #ffffff30;
+ background:#ffffff10;color:white;font-size:22px;cursor:pointer}
+.modal-description{color:#aac0d6;line-height:1.7;font-size:13px;margin-bottom:20px}
+.info-title{font-size:11px;color:#55caff;letter-spacing:2px;margin:18px 0 10px}
+.info-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;
+ border-bottom:1px solid #ffffff13;font-size:12px}
+.info-row span:first-child{color:#9bb2ca}
+.info-row span:last-child{text-align:right;color:#e5f4ff}
+.modal-note{font-size:11px;color:#829bb5;margin-top:20px;line-height:1.6}
+@media(max-width:600px){
+ .container{padding-top:22px}
+ header{margin-bottom:38px}
+ .brand-name{font-size:18px;letter-spacing:3px}
+ .brand-icon{width:40px;height:40px}
+ .clock strong{font-size:17px}
+ .clock{padding:8px}
+ .hero{padding:10px 0 38px}
+ .owl{width:82px;height:82px;font-size:46px;border-radius:25px}
+ .description{font-size:12px}
+ .grid{grid-template-columns:1fr}
+ .card{padding:19px}
+}
+</style>
+</head>
+<body>
+<div class="stars"></div><div class="earth"></div>
+<main class="container">
+
+<header>
+ <div class="brand">
+  <div class="brand-icon">✦</div>
+  <div><div class="brand-name">NEXORA</div><div class="brand-sub">INNOVATION STUDIO</div></div>
+ </div>
+ <div class="clock"><strong id="time">00:00:00</strong><small id="date"></small></div>
+</header>
+
+<section class="hero">
+ <div>
+  <div class="eyebrow">GELECEĞİ TASARLA</div>
+  <h1>NEXORA</h1>
+  <div class="slogan">Hayal Et. Üret. Keşfet.</div>
+  <p class="description">Fikirlerin projelere, projelerin geleceğe dönüştüğü yaratıcı teknoloji dünyasına hoş geldin.</p>
+ </div>
+ <div class="owl">🦉</div>
+</section>
+
+<section>
+ <div class="heading"><h2>Uygulamalar</h2><span>01 / PROJECTS</span></div>
+ <div class="grid">
+
+  <article class="card" onclick="showProject('bilim')">
+   <div class="card-top"><div class="card-icon">🔬</div><h3>Bilim 360</h3></div>
+   <p>Bilim dünyasını keşfetmeye yönelik proje.</p>
+   <span class="tag">Proje bilgilerini gör ↗</span>
+  </article>
+
+  <article class="card" onclick="showProject('hayat')">
+   <div class="card-top"><div class="card-icon">🌍</div><h3>Hayat 360</h3></div>
+   <p>Hayata ve çevremize farklı açılardan bakmak için.</p>
+   <span class="tag">Proje bilgilerini gör ↗</span>
+  </article>
+
+  <article class="card" onclick="showProject('akademi')">
+   <div class="card-top"><div class="card-icon">📚</div><h3>Tüm Dersler Akademi</h3></div>
+   <p>Eğitim ve öğrenme odaklı proje.</p>
+   <span class="tag">Proje bilgilerini gör ↗</span>
+  </article>
+
+  <article class="card" onclick="showProject('kasifler')">
+   <div class="card-top"><div class="card-icon">🧭</div><h3>Minik Kaşifler</h3></div>
+   <p>Keşfetmeye ve öğrenmeye yönelik proje.</p>
+   <span class="tag">Proje bilgilerini gör ↗</span>
+  </article>
+
+  <article class="card" onclick="showProject('dil')">
+   <div class="card-top"><div class="card-icon">🌐</div><h3>Dil Dünyası 360</h3></div>
+   <p>Dil öğrenme deneyimi üzerine geliştirilen proje.</p>
+   <span class="tag green">Oluşturuldu · 23 Kasım 2026</span>
+  </article>
+
+ </div>
+</section>
+
+<section class="section">
+ <div class="heading"><h2>Videolar</h2><span>02 / VIDEOS</span></div>
+ <div class="grid"><article class="card">
+  <div class="card-top"><div class="card-icon">🎬</div><h3>Video Galerisi</h3></div>
+  <p>Henüz yayınlanmış bir video bulunmuyor.</p><span class="tag">Henüz yapılmadı</span>
+ </article></div>
+</section>
+
+<section class="section">
+ <div class="heading"><h2>Fotoğraflar</h2><span>03 / GALLERY</span></div>
+ <div class="grid"><article class="card">
+  <div class="card-top"><div class="card-icon">📷</div><h3>Fotoğraf Galerisi</h3></div>
+  <p>Henüz yayınlanmış bir fotoğraf bulunmuyor.</p><span class="tag">Henüz yapılmadı</span>
+ </article></div>
+</section>
+
+<section class="section">
+ <div class="heading"><h2>Robotlar</h2><span>04 / ROBOTICS</span></div>
+ <div class="grid"><article class="card robot-card">
+  <div class="card-top"><div class="card-icon">🤖</div><h3>MapKit Çizgi İzleyen Robot</h3></div>
+  <p>Zemindeki çizgiyi sensörleriyle takip ederek belirlenen parkurda ilerlemek için tasarlanan robotik proje.</p>
+  <span class="tag">Robotik projesi</span>
+ </article></div>
+</section>
+
+<footer class="footer">NEXORA · HAYAL ET. ÜRET. KEŞFET.</footer>
+</main>
+
+<div class="modal" id="modal" onclick="outsideClose(event)">
+ <div class="modal-box">
+  <div class="modal-head"><h2 id="modalTitle">Proje Bilgileri</h2>
+   <button class="close" onclick="closeProject()" aria-label="Kapat">×</button>
+  </div>
+  <p class="modal-description" id="modalDescription"></p>
+  <div class="info-title">PROJE KÜNYESİ</div>
+  <div id="modalInfo"></div>
+  <p class="modal-note">NEXORA · Hayal Et. Üret. Keşfet.</p>
+ </div>
+</div>
+
+<script>
+const projects={
+ bilim:{
+  title:"🔬 Bilim 360",
+  description:"Bilim dünyasını keşfetmeye yönelik uygulama projesi.",
+  created:"Tarih henüz girilmedi",
+  updated:"Henüz girilmedi",status:"Proje",version:"1.0",
+  category:"Bilim ve keşif"
+ },
+ hayat:{
+  title:"🌍 Hayat 360",
+  description:"Hayata ve çevremize farklı açılardan bakmak için hazırlanan proje.",
+  created:"Tarih henüz girilmedi",
+  updated:"Henüz girilmedi",status:"Proje",version:"1.0",
+  category:"Yaşam"
+ },
+ akademi:{
+  title:"📚 Tüm Dersler Akademi",
+  description:"Eğitim ve öğrenme odaklı uygulama projesi.",
+  created:"Tarih henüz girilmedi",
+  updated:"Henüz girilmedi",status:"Proje",version:"1.0",
+  category:"Eğitim"
+ },
+ kasifler:{
+  title:"🧭 Minik Kaşifler",
+  description:"Keşfetmeye ve öğrenmeye yönelik uygulama projesi.",
+  created:"Tarih henüz girilmedi",
+  updated:"Henüz girilmedi",status:"Proje",version:"1.0",
+  category:"Keşif ve eğitim"
+ },
+ dil:{
+  title:"🌐 Dil Dünyası 360",
+  description:"Dil öğrenme deneyimi üzerine geliştirilen NEXORA projesi.",
+  created:"23 Kasım 2026",
+  updated:"23 Kasım 2026",status:"Oluşturuldu",
+  version:"1.0",category:"Eğitim ve dil öğrenme"
+ }
+};
+
+function showProject(id){
+ const p=projects[id];
+ document.getElementById("modalTitle").textContent=p.title;
+ document.getElementById("modalDescription").textContent=p.description;
+ const rows=[
+  ["Oluşturulma tarihi",p.created],
+  ["Son güncelleme",p.updated],
+  ["Geliştirme durumu",p.status],
+  ["Sürüm",p.version],
+  ["Kategori",p.category],
+  ["Geliştirici","NEXORA"]
+ ];
+ document.getElementById("modalInfo").innerHTML=rows.map(r=>
+  `<div class="info-row"><span>${r[0]}</span><span>${r[1]}</span></div>`
+ ).join("");
+ document.getElementById("modal").classList.add("show");
+}
+function closeProject(){document.getElementById("modal").classList.remove("show")}
+function outsideClose(e){if(e.target.id==="modal")closeProject()}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeProject()});
+
+function updateClock(){
+ const n=new Date();
+ document.getElementById("time").textContent=n.toLocaleTimeString("tr-TR");
+ document.getElementById("date").textContent=n.toLocaleDateString("tr-TR",{
+  weekday:"long",day:"numeric",month:"long",year:"numeric"
+ });
+}
+updateClock();setInterval(updateClock,1000);
+</script>
+</body>
+</html>
